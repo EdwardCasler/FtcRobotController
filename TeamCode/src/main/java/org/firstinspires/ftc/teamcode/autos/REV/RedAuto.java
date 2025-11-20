@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.autos.REV;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -20,10 +20,10 @@ public class RedAuto extends LinearOpMode {
 
         rightDrive.setPower(0.65);
         leftDrive.setPower(-1);
-        sleep(200);
+        sleep(400);
         leftDrive.setPower(1);
         rightDrive.setPower(0.65);
-        sleep(700);
+        sleep(900);
         leftDrive.setPower(0);
         rightDrive.setPower(0);
     }
