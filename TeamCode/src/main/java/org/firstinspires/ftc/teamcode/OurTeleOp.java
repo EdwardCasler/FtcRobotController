@@ -15,13 +15,16 @@ public class OurTeleOp extends OpMode {
     private DcMotor rightDrive;
 
     private float flyWheelVelocity = 1900;
+    private static final int bankVelocity = 1300;
+    private static final int farVelocity = 1900;
+    private static final int maxVelocity = 2200;
 
     private boolean flyWheelPowered;
     private boolean agitatorPowered;
     private boolean feedRollerPowered;
 
     public void init() {
-        flywheel = hardwareMap.get(DcMotor.class, "flywheel");
+        flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
         feedRoller = hardwareMap.get(DcMotor.class, "coreHex");
         leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
         agitator = hardwareMap.get(CRServo.class, "servo");
@@ -33,7 +36,7 @@ public class OurTeleOp extends OpMode {
         feedRoller.setDirection(DcMotor.Direction.REVERSE);
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        telemetry.addLine("a to turn on/off the flywheel");
+        telemetry.addLine("a to turn on/off the flywheel")
         telemetry.addLine("b to turn on/off the agitator");
         telemetry.addLine("x to turn on/off the feed roller");
         
@@ -79,6 +82,12 @@ public class OurTeleOp extends OpMode {
                 feedRollerPowered = true;
                 feedRoller.setPower(1);
             }
+        }
+        if(gamepad1.leftBumperWasPressed()) {
+            flyWheelVelocity = bankVelocity;
+        }
+        if (gamepad1.rightBumperWasPressed()) {
+            flyWheelVelocity = farVelocity;
         }
     }
     public void flyWheel() {
