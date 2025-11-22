@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class RedAutoWithShooting extends LinearOpMode {
+public class BlueAutoWithShooting extends LinearOpMode {
     private DcMotorEx flywheel;
     private DcMotor feedRoller;
     private CRServo agitator;
@@ -48,6 +48,8 @@ public class RedAutoWithShooting extends LinearOpMode {
         flywheel.setDirection(DcMotorSimple.Direction.REVERSE);
         flywheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         flywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        feedRoller.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         waitForStart();
 
@@ -61,12 +63,12 @@ public class RedAutoWithShooting extends LinearOpMode {
 
         // Stop shooter motors
         flywheel.setPower(0);
-        agitator.setPower(0);
+        //agitator.setPower(0);
         feedRoller.setPower(0);
 
-        // --- Post-shoot movement ---
-        rightDrive.setPower(1);
-        leftDrive.setPower(-1);
+        // --- Movement (BlueAuto style) ---
+        rightDrive.setPower(-1);
+        leftDrive.setPower(1);
         sleep(200);
 
         leftDrive.setPower(1);
