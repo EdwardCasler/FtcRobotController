@@ -1,37 +1,38 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp; // changed to TeleOp
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous
-public class OurAuto extends LinearOpMode {
+
+//Made with AI
+@TeleOp
+public class RtAndLtVelcotyTest extends LinearOpMode {
+
     private DcMotorEx flywheel;
     private DcMotor feedRoller;
     private CRServo agitator;
-    float ticksPerRev = 28 * 5 * 3; //5 and 3 is the gear reductions
-    float circumference = 9.5f; //in inches
-    float ticksPerInch = ticksPerRev / circumference;
-    ElapsedTime time = new ElapsedTime();
+    double flywheelTarget = 900; // starting velocity
     double multiplier;
+
     public double getLowestVoltage() {
         double lowestValue = Double.POSITIVE_INFINITY;
-        for(VoltageSensor sensor : hardwareMap.voltageSensor) {
-            if(sensor.getVoltage() < lowestValue && sensor.getVoltage() > 0.1) {
+        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            if (sensor.getVoltage() < lowestValue && sensor.getVoltage() > 0.1) {
                 lowestValue = sensor.getVoltage();
             }
         }
-        if(lowestValue == Double.POSITIVE_INFINITY) {
+        if (lowestValue == Double.POSITIVE_INFINITY) {
             lowestValue = 14;
         }
         return lowestValue;
     }
 
+    @Override
     public void runOpMode() {
         flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
         feedRoller = hardwareMap.get(DcMotor.class, "coreHex");
@@ -42,31 +43,27 @@ public class OurAuto extends LinearOpMode {
 
         flywheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         flywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         waitForStart();
-        while(opModeIsActive()) {
-            multiplier = 14 / getLowestVoltage();
-            ourSleep(1000);
-            agitator.setPower(1);
-            ourSleep(500);
-            feedRoller.setPower(1);
-            ourSleep(6000);
-            flywheel.setPower(0);
-            agitator.setPower(0);
-            feedRoller.setPower(0);
 
-            break;
-        }
-    }
-    void ourSleep(double timeTakes) {
-        time.reset();
-        while(time.milliseconds() < timeTakes && opModeIsActive()) {
-            multiplier = 14 / getLowestVoltage();
-            flywheel.setVelocity(900 * multiplier);
+        while (opModeIsActive()) {
+            // adjust flywheel target using triggers
+            if (gamepad1.right_trigger > 0.1) {
+                flywheelTarget += 5; // increase
+            }
+            if (gamepad1.left_trigger > 0.1) {
+                flywheelTarget -= 5; // decrease
+            }
 
-            telemetry.addLine("Multiplier: " + multiplier);
-            telemetry.addLine(String.valueOf(flywheel.getVelocity()));
+            // apply voltage compensation
+            multiplier = 14 / getLowestVoltage();
+            flywheel.setVelocity(flywheelTarget * multiplier);
+
+            // optional telemetry
+            telemetry.addData("Flywheel Target", flywheelTarget);
+            telemetry.addData("Flywheel Velocity", flywheel.getVelocity());
+            telemetry.addData("Multiplier", multiplier);
             telemetry.update();
-            idle();
         }
     }
 }
