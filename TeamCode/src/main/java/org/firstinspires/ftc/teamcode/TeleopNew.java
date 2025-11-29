@@ -23,7 +23,7 @@ public class TeleopNew extends OpMode {
 
     // --- NEW AND CHANGED VARIABLES ---
     // Motor power runs from -1.0 to 1.0. We use 'double' for precision.
-    private double feedRollerSpeed = 0.0;
+    private double feedRollerSpeed = 0.65;
     // This is the change amount: 0.05 is 5% power change.
     private final double FEED_ROLLER_INCREMENT = 0.05;
     private final double MAX_FEED_ROLLER_SPEED = 1.0;
