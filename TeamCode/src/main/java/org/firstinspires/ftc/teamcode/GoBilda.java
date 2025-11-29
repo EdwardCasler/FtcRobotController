@@ -134,10 +134,11 @@ public class GoBilda extends OpMode {
          */
 
         //Motors For Drive
-        leftFrontDrive = hardwareMap.get(DcMotor.class, "left_front_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        leftBackDrive = hardwareMap.get(DcMotor.class, "left_back_drive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        //2letters for easier typing
+        leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
+        leftBackDrive = hardwareMap.get(DcMotor.class, "bl");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "br");
 
         //Launcher (DC motor)
         launcher = hardwareMap.get(DcMotorEx.class, "launcher");
