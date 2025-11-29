@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 
 @TeleOp
-public class OurTeleOp extends OpMode {
+public class NewTeleOp extends OpMode {
     private DcMotorEx flywheel;
     private DcMotor feedRoller;
     private DcMotor leftDrive;
@@ -19,10 +19,9 @@ public class OurTeleOp extends OpMode {
     private DcMotor rightDrive;
 
     private float flyWheelVelocity = 1300;
-    private static final int bankVelocity = 1300;
-    private static final int farVelocity = 1900;
-    private static final int maxVelocity = 2200;
-
+    private float  ticksPerRev = 288;
+    private float offset = 0;
+    private float FeedRollerSpeed = 65;
     private boolean flyWheelPowered;
     private boolean agitatorPowered;
     private boolean feedRollerPowered;
@@ -34,8 +33,11 @@ public class OurTeleOp extends OpMode {
         agitator = hardwareMap.get(CRServo.class, "servo");
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
 
-        // Establishing the direction and mode for the motors
         flywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        feedRoller.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        feedRoller.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         flywheel.setDirection(DcMotor.Direction.REVERSE);
         feedRoller.setDirection(DcMotor.Direction.REVERSE);
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -43,11 +45,8 @@ public class OurTeleOp extends OpMode {
         telemetry.addLine("a to turn on/off the flywheel");
         telemetry.addLine("b to turn on/off the agitator");
         telemetry.addLine("x to turn on/off the feed roller");
-        telemetry.addLine("Left bumper for slow speed");
-        telemetry.addLine("right bumper for medium speed");
-        telemetry.addLine("This will disappear when the first interaction begins");
-        telemetry.addLine("Voltage control is on");
- 
+        telemetry.addLine("y to turn off flywheel agitator and set feed roller angle");
+
         telemetry.update();
     }
 
@@ -55,6 +54,9 @@ public class OurTeleOp extends OpMode {
         basicMovement();
         turnOnMotors();
         flyWheel();
+
+        telemetry.addLine("Encoder Position: " + String.valueOf(feedRoller.getCurrentPosition()));
+        telemetry.addLine("Offset: " + offset);
         telemetry.update();
     }
     public double getLowestVoltage() {
@@ -93,24 +95,35 @@ public class OurTeleOp extends OpMode {
             }
         }
         if(gamepad1.xWasPressed()) {
-            if(feedRollerPowered) {
-                feedRollerPowered = false;
-                feedRoller.setPower(0);
-            } else {
-                feedRollerPowered = true;
-                feedRoller.setPower(1);
+            if(!feedRoller.isBusy()) {
+                if(feedRollerPowered) {
+                    feedRoller.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    feedRollerPowered = false;
+                    feedRoller.setPower(0);
+                } else {
+                    feedRoller.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    feedRollerPowered = true;
+                    feedRoller.setPower(FeedRollerSpeed);
+                }
             }
         }
-        if(gamepad1.y) {
-            feedRoller.setPower(-0.5);
-        }
-        if(gamepad1.yWasReleased()) {
-            feedRoller.setPower(0);
+        if(gamepad1.yWasPressed()) {
+            float angleOff = (feedRoller.getCurrentPosition() % ticksPerRev);
+
+            feedRollerPowered = false;
+
+            feedRoller.setTargetPosition((int)(feedRoller.getCurrentPosition() - angleOff));
+            feedRoller.setPower(1);
+            feedRoller.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            flywheel.setPower(0);
+            agitator.setPower(0);
         }
     }
     public void flyWheel() {
         if(flyWheelPowered) {
             double multiplier = 14 / getLowestVoltage();
+            telemetry.addData("Velocity", flyWheelVelocity * multiplier);
             flywheel.setVelocity(flyWheelVelocity * multiplier);
         } else {
             flywheel.setVelocity(0);

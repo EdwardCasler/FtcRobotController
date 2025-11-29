@@ -18,12 +18,12 @@ public class BlueAuto extends LinearOpMode {
         rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         waitForStart();
 
-        rightDrive.setPower(-0.65);
+        rightDrive.setPower(-1);
         leftDrive.setPower(1);
         sleep(400);
         leftDrive.setPower(1);
-        rightDrive.setPower(0.65);
-        sleep(900);
+        rightDrive.setPower(1);
+        sleep(700);
         leftDrive.setPower(0);
         rightDrive.setPower(0);
     }
