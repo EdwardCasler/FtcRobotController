@@ -258,7 +258,7 @@ public class GoBilda extends OpMode {
     public void stop() {
         telemetry.addLine("Program Stopped");
         telemetry.addLine("Final Data:");
-        
+
     }
 
     void mecanumDrive(double forward, double strafe, double rotate){
