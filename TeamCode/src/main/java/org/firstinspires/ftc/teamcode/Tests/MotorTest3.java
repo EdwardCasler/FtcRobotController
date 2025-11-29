@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 //Motor Test
 @TeleOp
-public class MotorTest2 extends LinearOpMode {
+public class MotorTest3 extends LinearOpMode {
     private DcMotor rightDrive;
     private DcMotor leftDrive;
 

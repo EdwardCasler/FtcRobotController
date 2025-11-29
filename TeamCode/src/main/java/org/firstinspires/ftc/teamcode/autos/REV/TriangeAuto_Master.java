@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
-public class TriangeAuto extends LinearOpMode {
+public class TriangeAuto_Master extends LinearOpMode {
     private DcMotor leftDrive;
     private DcMotor rightDrive;
 

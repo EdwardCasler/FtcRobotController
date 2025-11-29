@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
-public class OldRevTeleOp extends OpMode {
+public class OldRevTeleOp_Master extends OpMode {
     private DcMotor rightFront;
     private DcMotor rightRear;
     private DcMotor leftFront;
