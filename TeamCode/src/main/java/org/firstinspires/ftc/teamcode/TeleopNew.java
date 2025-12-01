@@ -53,7 +53,7 @@ public class TeleopNew extends OpMode {
         telemetry.addLine("X to start/stop the feed roller");
         telemetry.addLine("RIGHT/LEFT BUMPERS to change feed roller speed");
         telemetry.addLine("y to turn off all and reset feed roller");
-        telemetry.addLine("Different Debugging may show up, Abhi, ignore them, Eddie, you can see them if you understand them");
+        telemetry.addLine("");
 
         telemetry.update();
     }
