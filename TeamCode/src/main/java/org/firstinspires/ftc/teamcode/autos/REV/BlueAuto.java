@@ -1,30 +1,31 @@
 package org.firstinspires.ftc.teamcode.autos.REV;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+//Imports
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;    //It is a auto
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotor;                  //Allow us to control motors
+import com.qualcomm.robotcore.hardware.DcMotorSimple;            //Allow us to control motors
 
-@Autonomous
-public class BlueAuto extends LinearOpMode {
+@Autonomous  //Make this a auto
+public class BlueAuto extends LinearOpMode { //Ignore this
     private DcMotor leftDrive;
     private DcMotor rightDrive;
 
-    @Override
+    @Override //Overide the empty code that is default
     public void runOpMode() {
-        leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
-        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
+        leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");    //This finds the left motor
+        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");  //This finds the right motor
 
-        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        waitForStart();
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);              //Reverses the motor
+        waitForStart();                                 //Wait for the start button to be clicked
 
-        rightDrive.setPower(-1);
+        rightDrive.setPower(-1);    //One motor goes backward, one goes forward, so it turns
         leftDrive.setPower(1);
-        sleep(400);
-        leftDrive.setPower(1);
-        rightDrive.setPower(1);
-        sleep(700);
-        leftDrive.setPower(0);
+        sleep(400);      //Give it time to turn
+        leftDrive.setPower(1);       //Move forward
+        rightDrive.setPower(1);       // Move forward
+        sleep(700);       //Let it move
+        leftDrive.setPower(0);     //Stop the motors
         rightDrive.setPower(0);
     }
 }
