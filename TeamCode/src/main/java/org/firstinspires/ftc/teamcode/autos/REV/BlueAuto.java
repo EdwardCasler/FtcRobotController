@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos.REV;
+package org.firstinspires.ftc.teamcode.autos.REV;  //Package for autos
 
 //Imports
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;    //It is a auto
@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;                  //Allow us to c
 import com.qualcomm.robotcore.hardware.DcMotorSimple;            //Allow us to control motors
 
 @Autonomous  //Make this a auto
-public class BlueAuto extends LinearOpMode { //Ignore this
+public class BlueAuto extends LinearOpMode { //Ignore this line, but worry about the "{" symbol. That opens the class in this OOP langauge
     private DcMotor leftDrive;
     private DcMotor rightDrive;
 
     @Override //Overide the empty code that is default
-    public void runOpMode() {
+    public void runOpMode() { //Run the opmode
         leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");    //This finds the left motor
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");  //This finds the right motor
 
