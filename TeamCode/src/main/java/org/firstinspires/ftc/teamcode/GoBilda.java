@@ -137,6 +137,7 @@ public class GoBilda extends OpMode {
 
         launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
 
+
         /*
          * Much like our drivetrain motors, we set the left feeder servo to reverse so that they
          * both work to feed the ball into the robot.
@@ -147,6 +148,17 @@ public class GoBilda extends OpMode {
          * Tell the driver that initialization is complete.
          */
         telemetry.addData("Status", "Initialized");
+        telemetry.addLine("=== Controller Button Map ===");
+        telemetry.addData("Triangle (Y)", "Spin up launcher");
+        telemetry.addData("Circle (B)", "Stop launcher");
+        telemetry.addData("Cross (A)", "Reverse feeders");
+        telemetry.addData("Square (X)", "Reverse launcher direction");
+        telemetry.addData("Right Bumper (R1)", "Fire shot");
+        telemetry.addData("Left Stick", "Drive forward/back & strafe");
+        telemetry.addData("Right Stick X", "Rotate robot");
+        telemetry.addData("D-Pad", "Not used");
+        telemetry.addData("L1 / L2 / R2", "Not used");
+        telemetry.addLine("=============================");
     }
 
     /*
@@ -187,6 +199,11 @@ public class GoBilda extends OpMode {
             launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
         } else if (gamepad1.b) { // stop flywheel
             launcher.setVelocity(STOP_SPEED);
+        } else if(gamepad1.a){
+            rightFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
+        } else if(gamepad1.x){
+            launcher.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
         /*
