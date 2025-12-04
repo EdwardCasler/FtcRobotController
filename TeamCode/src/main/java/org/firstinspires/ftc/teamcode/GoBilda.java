@@ -1,4 +1,5 @@
 
+
 package org.firstinspires.ftc.teamcode;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
@@ -6,28 +7,16 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/*
- * This file includes a teleop (driver-controlled) file for the goBILDA® StarterBot for the
- * 2025-2026 FIRST® Tech Challenge season DECODE™. It leverages a differential/Skid-Steer
- * system for robot mobility, one high-speed motor driving two "launcher wheels", and two servos
- * which feed that launcher.
- *
- * Likely the most niche concept we'll use in this example is closed-loop motor velocity control.
- * This control method reads the current speed as reported by the motor's encoder and applies a varying
- * amount of power to reach, and then hold a target velocity. The FTC SDK calls this control method
- * "RUN_USING_ENCODER". This contrasts to the default "RUN_WITHOUT_ENCODER" where you control the power
- * applied to the motor directly.
- * Since the dynamics of a launcher wheel system varies greatly from those of most other FTC mechanisms,
- * we will also need to adjust the "PIDF" coefficients with some that are a better fit for our application.
- */
 
-@TeleOp(name = "StarterBotTeleopMecanums", group = "StarterBot")
+
+@TeleOp(name = "CrunchiesTeleop", group = "StarterBot")
 //@Disabled
 public class GoBilda extends OpMode {
     final double FEED_TIME_SECONDS = 0.20; //The feeder servos run this long when a shot is requested.
@@ -43,16 +32,12 @@ public class GoBilda extends OpMode {
     final double LAUNCHER_TARGET_VELOCITY = 1125;
     final double LAUNCHER_MIN_VELOCITY = 1075;
 
-    // Declare OpMode members. I like declaring them seperatly in order to make it look more easier to read.
-
-    //DC motors
+    // Declare OpMode members.
     private DcMotor leftFrontDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotorEx launcher = null;
-
-    //Servos
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
 
@@ -101,21 +86,13 @@ public class GoBilda extends OpMode {
          * to 'get' must correspond to the names assigned during the robot configuration
          * step.
          */
-
-        //Motors For Drive
-        //2letters for easier typing
         leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
         leftBackDrive = hardwareMap.get(DcMotor.class, "bl");
         rightBackDrive = hardwareMap.get(DcMotor.class, "br");
-
-        //Launcher (DC motor)
         launcher = hardwareMap.get(DcMotorEx.class, "launcher");
-
-        //Servos for feeders
         leftFeeder = hardwareMap.get(CRServo.class, "left_feeder");
         rightFeeder = hardwareMap.get(CRServo.class, "right_feeder");
-
         /*
          * To drive forward, most robots need the motor on one side to be reversed,
          * because the axles point in opposite directions. Pushing the left stick forward
@@ -127,6 +104,9 @@ public class GoBilda extends OpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        launcher.setDirection(DcMotor.Direction.REVERSE);
+        leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Here we set our launcher to the RUN_USING_ENCODER runmode.
@@ -135,8 +115,6 @@ public class GoBilda extends OpMode {
          * into the port right beside the motor itself. And that the motors polarity is consistent
          * through any wiring.
          */
-        launcher.setDirection(DcMotor.Direction.REVERSE);
-
         launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         /*
@@ -144,6 +122,7 @@ public class GoBilda extends OpMode {
          * slow down much faster when it is coasting. This creates a much more controllable
          * drivetrain. As the robot stops much quicker.
          */
+
         leftFrontDrive.setZeroPowerBehavior(BRAKE);
         rightFrontDrive.setZeroPowerBehavior(BRAKE);
         leftBackDrive.setZeroPowerBehavior(BRAKE);
@@ -168,10 +147,6 @@ public class GoBilda extends OpMode {
          * Tell the driver that initialization is complete.
          */
         telemetry.addData("Status", "Initialized");
-        telemetry.addLine("Right stick to move, left to rotate");
-        telemetry.addLine("Right bumper to shoot");
-        telemetry.addLine("Y Button (Hold): Spin launcher");
-
     }
 
     /*
@@ -232,9 +207,9 @@ public class GoBilda extends OpMode {
      */
     @Override
     public void stop() {
-        telemetry.addLine("Program Stopped");
-        telemetry.addLine("Final Data:");
-
+        telemetry.addLine("Program Stopped. Here are the logs so I know how the game went.");
+        telemetry.addData("Launcher Velocity", launcher.getVelocity());
+        telemetry.update();
     }
 
     void mecanumDrive(double forward, double strafe, double rotate){
