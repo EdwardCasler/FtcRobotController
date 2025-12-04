@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-@TeleOp(name = "CrunchiesTeleop", group = "StarterBot")
+@TeleOp(name = "QuickCode", group = "StarterBot")
 //@Disabled
 public class GoBilda extends OpMode {
     final double FEED_TIME_SECONDS = 0.20; //The feeder servos run this long when a shot is requested.
@@ -86,11 +86,14 @@ public class GoBilda extends OpMode {
          * to 'get' must correspond to the names assigned during the robot configuration
          * step.
          */
+        //Drive
         leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
         leftBackDrive = hardwareMap.get(DcMotor.class, "bl");
         rightBackDrive = hardwareMap.get(DcMotor.class, "br");
+        //launcher
         launcher = hardwareMap.get(DcMotorEx.class, "launcher");
+        //Feeders
         leftFeeder = hardwareMap.get(CRServo.class, "left_feeder");
         rightFeeder = hardwareMap.get(CRServo.class, "right_feeder");
         /*
@@ -156,8 +159,6 @@ public class GoBilda extends OpMode {
         telemetry.addData("Right Bumper (R1)", "Fire shot");
         telemetry.addData("Left Stick", "Drive forward/back & strafe");
         telemetry.addData("Right Stick X", "Rotate robot");
-        telemetry.addData("D-Pad", "Not used");
-        telemetry.addData("L1 / L2 / R2", "Not used");
         telemetry.addLine("=============================");
     }
 
