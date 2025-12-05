@@ -23,6 +23,12 @@ public class GoBilda extends OpMode {
     final double STOP_SPEED = 0.0; //We send this power to the servos when we want them to stop.
     final double FULL_SPEED = 1.0;
 
+    //intake
+    boolean intakeOn = false;     // Tracks whether intake is running
+    boolean lastLB = false;       // Tracks previous state of left bumper
+    boolean intakeReverse = false;   // Tracks whether intake direction is reversed
+    boolean lastLT = false;          // Tracks previous state of left trigger
+
     /*
      * When we control our launcher motor, we are using encoders. These allow the control system
      * to read the current speed of the motor and apply more or less power to keep it at a constant
@@ -38,6 +44,8 @@ public class GoBilda extends OpMode {
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotorEx launcher = null;
+    private DcMotorEx intake = null;
+
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
 
@@ -96,6 +104,9 @@ public class GoBilda extends OpMode {
         //Feeders
         leftFeeder = hardwareMap.get(CRServo.class, "left_feeder");
         rightFeeder = hardwareMap.get(CRServo.class, "right_feeder");
+        //intake
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+
         /*
          * To drive forward, most robots need the motor on one side to be reversed,
          * because the axles point in opposite directions. Pushing the left stick forward
@@ -157,6 +168,8 @@ public class GoBilda extends OpMode {
         telemetry.addData("Cross (A)", "Reverse feeders");
         telemetry.addData("Square (X)", "Reverse launcher direction");
         telemetry.addData("Right Bumper (R1)", "Fire shot");
+        telemetry.addData("Left Bumper (L1)", "Intake toggle: on/off");
+        telemetry.addData("Left Trigger (L2)", "Intake direction reverse");
         telemetry.addData("Left Stick", "Drive forward/back & strafe");
         telemetry.addData("Right Stick X", "Rotate robot");
         telemetry.addLine("=============================");
@@ -206,6 +219,43 @@ public class GoBilda extends OpMode {
         } else if(gamepad1.x){
             launcher.setDirection(DcMotorSimple.Direction.REVERSE);
         }
+
+
+
+
+                // Detect a NEW press (button went from not pressed → pressed)
+                if (gamepad1.left_bumper && !lastLB) {
+                    intakeOn = !intakeOn;   // Toggle the intake state
+                }
+
+                // Apply motor power based on toggle state
+                if (intakeOn) {
+                    intake.setPower(1.0);   // Intake ON
+                } else {
+                    intake.setPower(0.0);   // Intake OFF
+                }
+
+                lastLB = gamepad1.left_bumper;  // Update for next loop
+
+
+
+        // Read trigger state (pressed if > 0.5)
+        boolean currentLT = gamepad1.left_trigger > 0.5;
+
+        // Detect NEW press (edge detection)
+                if (currentLT && !lastLT) {
+                    intakeReverse = !intakeReverse;   // Toggle direction
+                }
+
+        // Apply direction
+                if (intakeReverse) {
+                    intake.setDirection(DcMotorSimple.Direction.REVERSE);
+                } else {
+                    intake.setDirection(DcMotorSimple.Direction.FORWARD);
+                }
+
+        // Update last state
+                lastLT = currentLT;
 
         /*
          * Now we call our "Launch" function.
