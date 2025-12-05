@@ -119,8 +119,6 @@ public class GoBilda extends OpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         launcher.setDirection(DcMotor.Direction.REVERSE);
-        leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Here we set our launcher to the RUN_USING_ENCODER runmode.
@@ -168,6 +166,8 @@ public class GoBilda extends OpMode {
         telemetry.addData("Cross (A)", "Reverse feeders");
         telemetry.addData("Square (X)", "Reverse launcher direction");
         telemetry.addData("Right Bumper (R1)", "Fire shot");
+        telemetry.addData("Right Trigger (R2)", "Feed Rollers");
+
         telemetry.addData("Left Bumper (L1)", "Intake toggle: on/off");
         telemetry.addData("Left Trigger (L2)", "Intake direction reverse");
         telemetry.addData("Left Stick", "Drive forward/back & strafe");
@@ -237,6 +237,14 @@ public class GoBilda extends OpMode {
 
                 lastLB = gamepad1.left_bumper;  // Update for next loop
 
+        // Manual feed roller control using R2
+                if (gamepad1.right_trigger > 0.5) {
+                    leftFeeder.setPower(1.0);
+                    rightFeeder.setPower(1.0);
+                } else {
+                    leftFeeder.setPower(0.0);
+                    rightFeeder.setPower(0.0);
+                }
 
 
         // Read trigger state (pressed if > 0.5)
@@ -267,6 +275,36 @@ public class GoBilda extends OpMode {
          */
         telemetry.addData("State", launchState);
         telemetry.addData("motorSpeed", launcher.getVelocity());
+        telemetry.addLine("=== Robot Status ===");
+
+// Drivetrain (optional but helpful)
+        telemetry.addData("LF Power", "%.2f", leftFrontPower);
+        telemetry.addData("RF Power", "%.2f", rightFrontPower);
+        telemetry.addData("LB Power", "%.2f", leftBackPower);
+        telemetry.addData("RB Power", "%.2f", rightBackPower);
+
+// Launcher
+        telemetry.addLine("--- Launcher ---");
+        telemetry.addData("State", launchState);
+        telemetry.addData("Velocity", "%.1f", launcher.getVelocity());
+        telemetry.addData("Target Vel", LAUNCHER_TARGET_VELOCITY);
+        telemetry.addData("Min Vel", LAUNCHER_MIN_VELOCITY);
+
+// Intake
+        telemetry.addLine("--- Intake ---");
+        telemetry.addData("Intake ON", intakeOn ? "YES" : "NO");
+        telemetry.addData("Direction", intakeReverse ? "REVERSE" : "FORWARD");
+        telemetry.addData("Power", "%.2f", intakeOn ? 1.0 : 0.0);
+
+// Gamepad
+        telemetry.addLine("--- Gamepad ---");
+        telemetry.addData("L1 (Toggle)", gamepad1.left_bumper);
+        telemetry.addData("L2 (Reverse Toggle)", "%.2f", gamepad1.left_trigger);
+        //Feedrollers
+        telemetry.addData("Feed Rollers", gamepad1.right_trigger > 0.5 ? "ON (R2)" : "OFF");
+
+        telemetry.update();
+
 
     }
 
