@@ -13,6 +13,8 @@ public class OurRedAuto extends LinearOpMode {
     private DcMotor rightDrive;
     private float positionPerDegree = 1 / (270 / 2);
     private Servo flap;
+    private float upPos = positionPerDegree * 140;
+    private float downPos = positionPerDegree * 70;
     public void runOpMode() {
         leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
@@ -25,9 +27,9 @@ public class OurRedAuto extends LinearOpMode {
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
-        flywheel.setVelocity(1300);
+        flywheel.setVelocity(1700);
         sleep(5000);
-        flap.setPosition(1 - (30 * positionPerDegree));
+        flap.setPosition(upPos);
         sleep(4000);
         leftDrive.setPower(-1);
         rightDrive.setPower(1);
