@@ -21,6 +21,8 @@ public class OurTeleOp extends LinearOpMode {
     private float flyWheelVelocity = 1300;
     private float  ticksPerRev = 288;
     private float positionPerDegree = 1f / 270f;
+    private float upPos = positionPerDegree * 140;
+    private float downPos = positionPerDegree * 70;
     private float offset = 0;
     private boolean flyWheelPowered;
     private boolean flapUp;
@@ -40,8 +42,6 @@ public class OurTeleOp extends LinearOpMode {
         flywheel.setDirection(DcMotor.Direction.REVERSE);
         feedRoller.setDirection(DcMotor.Direction.REVERSE);
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        flap.setDirection(Servo.Direction.REVERSE);
 
         telemetry.addLine("a to turn on/off the flywheel");
         telemetry.addLine("b to turn on/off the agitator");
@@ -88,14 +88,8 @@ public class OurTeleOp extends LinearOpMode {
             flyWheelPowered = !flyWheelPowered;
         }
         if(gamepad1.bWasPressed()) {
-            // + 30 * positionPerDegree because the starting position is 30 so to set it to a 0 you have to add 30
-            if(flapUp) {
-                flapUp = false;
-                flap.setPosition(1 - (30 * positionPerDegree));
-            } else {
-                flapUp = true;
-                flap.setPosition(1 - ((90 + 30) * positionPerDegree));
-            }
+            flapUp = !flapUp;
+            flap.setPosition(flapUp ? upPos : downPos);
         }
         if(gamepad1.xWasPressed()) {
             if(!feedRoller.isBusy()) {
@@ -120,7 +114,7 @@ public class OurTeleOp extends LinearOpMode {
             feedRoller.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             flywheel.setPower(0);
-            flap.setPosition(1 - (30 * positionPerDegree));
+            flap.setPosition(downPos);
         }
     }
     void servoBusy(float target) {
