@@ -199,7 +199,7 @@ public class GoBilda extends OpMode {
          * the joysticks, and applies power to the left and right drive motor to move the robot
          * as requested by the driver. "arcade" refers to the control style we're using here.
          * Much like a classic arcade game, when you move the left joystick forward both motors
-         * work to drive the robot forward, and when you move the right joystick left and right
+         * work to drive the robot forward, qh when you move the right joystick left and right
          * both motors work to rotate the robot. Combinations of these inputs can be used to create
          * more complex maneuvers.
          */
