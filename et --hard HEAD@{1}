@@ -1,0 +1,93 @@
+[33m88227b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mEdward_branch[m[33m, [m[1;31morigin/Edward_Branch[m[33m)[m HEAD@{0}: reset: moving to origin/Edward_branch
+[33m0d41559[m HEAD@{1}: commit: Added go builda file
+[33mdf0dcdb[m HEAD@{2}: checkout: moving from master to Edward_branch
+[33m322b4f1[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{3}: checkout: moving from Edward_branch to master
+[33mdf0dcdb[m HEAD@{4}: reset: moving to HEAD
+[33mdf0dcdb[m HEAD@{5}: checkout: moving from master to Edward_branch
+[33m322b4f1[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{6}: checkout: moving from Edward_branch to master
+[33mdf0dcdb[m HEAD@{7}: commit: small changes speed & falp
+[33md878797[m HEAD@{8}: commit: added servo test tweaked ourteleop
+[33mb273fbf[m HEAD@{9}: checkout: moving from b273fbf3edecfe63bb0f32915065ba7e99237145 to Edward_branch
+[33mb273fbf[m HEAD@{10}: checkout: moving from Edward_Branch to b273fbf
+[33m88227b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mEdward_branch[m[33m, [m[1;31morigin/Edward_Branch[m[33m)[m HEAD@{11}: checkout: moving from b273fbf3edecfe63bb0f32915065ba7e99237145 to Edward_Branch
+[33mb273fbf[m HEAD@{12}: checkout: moving from Edward_Branch to b273fbf
+[33m88227b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mEdward_branch[m[33m, [m[1;31morigin/Edward_Branch[m[33m)[m HEAD@{13}: checkout: moving from b273fbf3edecfe63bb0f32915065ba7e99237145 to Edward_Branch
+[33mb273fbf[m HEAD@{14}: commit: added auto and changed teleop
+[33m3a35bec[m HEAD@{15}: checkout: moving from bbed9655cd4178f8b52b39f9406309a4fdf54e91 to 3a35bec6834a9e6816ba0f24d1fa3154d0a18a9a
+[33mbbed965[m HEAD@{16}: checkout: moving from 0daae6ef78ad13d51a819095f984da7ffafa1d02 to bbed9655cd4178f8b52b39f9406309a4fdf54e91
+[33m0daae6e[m HEAD@{17}: checkout: moving from Edward_Branch to 0daae6ef78ad13d51a819095f984da7ffafa1d02
+[33m88227b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mEdward_branch[m[33m, [m[1;31morigin/Edward_Branch[m[33m)[m HEAD@{18}: commit: Removed the exccess stuffs
+[33m0daae6e[m HEAD@{19}: commit: Added new feedroller logic
+[33mbbed965[m HEAD@{20}: commit: fixed pressing y with flap
+[33m3a35bec[m HEAD@{21}: commit: reverted ishanns deletion
+[33m2cbcd8b[m HEAD@{22}: checkout: moving from recover to Edward_Branch
+[33m2cbcd8b[m HEAD@{23}: checkout: moving from Edward_Branch to recover
+[33m2cbcd8b[m HEAD@{24}: checkout: moving from master to Edward_Branch
+[33mdc7545b[m HEAD@{25}: checkout: moving from Edward_Branch to master
+[33m2cbcd8b[m HEAD@{26}: commit: Add sleep: OurAuto and OurTeleop
+[33m59fd7f4[m HEAD@{27}: commit: testing
+[33mb9724ea[m HEAD@{28}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mb469747[m HEAD@{29}: reset: moving to HEAD
+[33mb469747[m HEAD@{30}: reset: moving to HEAD
+[33mb469747[m HEAD@{31}: reset: moving to HEAD
+[33mb469747[m HEAD@{32}: commit: IMPORTANT-----🐧🐧🐧🐧🐧
+[33m74cad0c[m HEAD@{33}: commit: Git
+[33m703027b[m HEAD@{34}: checkout: moving from eb9cdaef4a994af579fd8098ea0183bb83b16be6 to Edward_Branch
+[33meb9cdae[m HEAD@{35}: checkout: moving from Edward_Branch to eb9cdaef4a994af579fd8098ea0183bb83b16be6
+[33m703027b[m HEAD@{36}: checkout: moving from eb9cdaef4a994af579fd8098ea0183bb83b16be6 to Edward_Branch
+[33meb9cdae[m HEAD@{37}: checkout: moving from Edward_Branch to eb9cdaef4a994af579fd8098ea0183bb83b16be6
+[33m703027b[m HEAD@{38}: checkout: moving from eb9cdaef4a994af579fd8098ea0183bb83b16be6 to Edward_Branch
+[33meb9cdae[m HEAD@{39}: checkout: moving from Edward_Branch to eb9cdaef4a994af579fd8098ea0183bb83b16be6
+[33m703027b[m HEAD@{40}: reset: moving to 703027be627257418e37d93aea627dbe1ca03d34
+[33m703027b[m HEAD@{41}: commit: AFTER PID ❗❗❗
+[33meb9cdae[m HEAD@{42}: reset: moving to eb9cdaef4a994af579fd8098ea0183bb83b16be6
+[33ma06c4bd[m HEAD@{43}: commit: AFTER PID ❗❗❗
+[33meb9cdae[m HEAD@{44}: commit: IMPORTANT--- 🐧🐧🐧🐧
+[33mcb51b81[m HEAD@{45}: commit: MOVED THINGS & ADDED NEW TELEOP
+[33m58ac5f8[m HEAD@{46}: commit: Updated Autos
+[33me10b72e[m HEAD@{47}: checkout: moving from master to Edward_Branch
+[33mf3bb9f1[m HEAD@{48}: checkout: moving from Edward_Branch to master
+[33me10b72e[m HEAD@{49}: commit: efwa
+[33m72213af[m HEAD@{50}: commit: Create FlywheelAutoAdjust.java
+[33m30e0ffb[m HEAD@{51}: commit: Remove old drive code and add velocity test opmode
+[33m5ca2a35[m HEAD@{52}: commit: removed moving from auto
+[33mf332da7[m HEAD@{53}: commit: IMPORTANT 🐧🐧
+[33ma2be8a5[m HEAD@{54}: commit: Add TestTeleOp and update drive/agitator logic
+[33m957da66[m HEAD@{55}: commit: minor
+[33m29608d5[m HEAD@{56}: commit: made chagnes
+[33mbf88a25[m HEAD@{57}: checkout: moving from master to Edward_Branch
+[33me5ba302[m HEAD@{58}: reset: moving to HEAD
+[33me5ba302[m HEAD@{59}: checkout: moving from Edward_Branch to master
+[33mbf88a25[m HEAD@{60}: reset: moving to HEAD
+[33mbf88a25[m HEAD@{61}: commit: minor changes
+[33mec50871[m HEAD@{62}: commit: slighly changed ourteleliiop
+[33m48b99bd[m HEAD@{63}: checkout: moving from master to Edward_Branch
+[33m518688d[m HEAD@{64}: checkout: moving from Edward_Branch to master
+[33m48b99bd[m HEAD@{65}: checkout: moving from master to Edward_Branch
+[33m518688d[m HEAD@{66}: checkout: moving from Edward_Branch to master
+[33m48b99bd[m HEAD@{67}: commit: moved old things and added new things
+[33m1b42827[m HEAD@{68}: commit: renamed files
+[33ma37881d[m HEAD@{69}: commit: first
+[33ma7300c2[m HEAD@{70}: checkout: moving from master to Edward_Branch
+[33ma7300c2[m HEAD@{71}: pull --ff --recurse-submodules --progress origin: Merge made by the 'ort' strategy.
+[33mc857882[m HEAD@{72}: commit: rd6tugyi
+[33me70890b[m HEAD@{73}: pull --ff --recurse-submodules --progress origin: Merge made by the 'ort' strategy.
+[33md34e704[m HEAD@{74}: commit (merge): ERTY
+[33m1d73372[m HEAD@{75}: commit: Update JustWheels.java
+[33mc741e9b[m HEAD@{76}: reset: moving to HEAD
+[33mc741e9b[m HEAD@{77}: reset: moving to HEAD
+[33mc741e9b[m HEAD@{78}: commit: Add DriveTrainSpeedFactor and update drive logic
+[33m2fc2805[m HEAD@{79}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mabd2ef3[m HEAD@{80}: checkout: moving from Good to master
+[33mabd2ef3[m HEAD@{81}: checkout: moving from master to Good
+[33mabd2ef3[m HEAD@{82}: checkout: moving from Good to master
+[33mabd2ef3[m HEAD@{83}: checkout: moving from master to Good
+[33mabd2ef3[m HEAD@{84}: commit: IMPORTANT---
+[33m499eb45[m HEAD@{85}: commit: idk
+[33m92f2f09[m HEAD@{86}: commit: idk
+[33m77d83c6[m HEAD@{87}: commit: commiting WITHOUT oldrevtelop
+[33ma5f77d2[m HEAD@{88}: pull --ff --recurse-submodules --progress origin: Merge made by the 'ort' strategy.
+[33ma8422e2[m HEAD@{89}: commit: Deleted Unecceary Files & Added JustWheels
+[33m7c89cb4[m HEAD@{90}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mba649a1[m HEAD@{91}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m78a8530[m HEAD@{92}: clone: from https://github.com/EdwardCasler/FtcRobotController.git
