@@ -16,7 +16,7 @@ public class TeleopNew extends OpMode {
     private DcMotor leftDrive;
     private CRServo agitator;
     private DcMotor rightDrive;
-
+//s
     private float flyWheelVelocity = 1300;
     private float  ticksPerRev = 288;
     private float offset = 0;
