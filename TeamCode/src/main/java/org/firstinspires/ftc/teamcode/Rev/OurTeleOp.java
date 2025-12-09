@@ -15,7 +15,7 @@ public class OurTeleOp extends LinearOpMode {
     private DcMotor leftDrive;
     private Servo flap;
     private DcMotor rightDrive;
-    private float flyWheelVelocity = 1700;
+    private float flyWheelVelocity = 1600;
     private float  ticksPerRev = 288;
     private float positionPerDegree = 1f / 270f;
     private float upPos = positionPerDegree * 140;
