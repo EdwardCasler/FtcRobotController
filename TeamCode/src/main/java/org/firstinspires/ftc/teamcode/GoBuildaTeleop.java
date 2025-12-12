@@ -37,6 +37,7 @@ public class GoBuildaTeleop extends OpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         launcher.setDirection(DcMotor.Direction.REVERSE);
+        rightFeeder.setDirection(CRServo.Direction.REVERSE);
 
         launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -47,7 +48,8 @@ public class GoBuildaTeleop extends OpMode {
 
         telemetry.addLine("Y to turn launcher off/on");
         telemetry.addLine("A to turn intake off/on");
-        telemetry.addLine("X to turn reverse intake direction");
+        telemetry.addLine("X for intake turning off");
+        telemetry.addLine("Right & Left bumper for intake left right");
         telemetry.addLine("Right & Left trigger for feeders");
     }
     public void loop() {
@@ -63,10 +65,6 @@ public class GoBuildaTeleop extends OpMode {
             intakeOn = !intakeOn;
             intake.setPower(intakeOn ? 1 : 0);
         }
-        if(gamepad1.xWasReleased()){
-            intakeIn = !intakeIn;
-            intake.setDirection(intakeIn ? DcMotorEx.Direction.FORWARD : DcMotorEx.Direction.REVERSE);
-        }
 
         if(gamepad1.left_trigger > 0.1) {
             leftFeeder.setPower(1);
@@ -78,6 +76,17 @@ public class GoBuildaTeleop extends OpMode {
         } else {
             leftFeeder.setPower(0);
             rightFeeder.setPower(0);
+        }
+        if(gamepad1.xWasReleased()){
+            intake.setPower(0);
+        }
+        if(gamepad1.leftBumperWasPressed()) {
+            intake.setPower(1);
+            intake.setPower(1);
+        }
+        if(gamepad1.rightBumperWasPressed()) {
+            intake.setPower(-1);
+            intake.setPower(-1);
         }
     }
     public void drive() {
