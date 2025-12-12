@@ -21,9 +21,7 @@ public class GoBuildaTeleop extends LinearOpMode {
     private CRServo rightFeeder = null;
     final double targetVelocity = 1125;
     ElapsedTime timer = new ElapsedTime();
-    boolean launcherOn = false;
     boolean feedersSpinning;
-    boolean running;
     public void runOpMode() {
         leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
@@ -64,7 +62,7 @@ public class GoBuildaTeleop extends LinearOpMode {
         if(gamepad1.aWasReleased() && !feedersSpinning) {
             launcher.setVelocity(targetVelocity);
             while (timesShot <= 3 && opModeIsActive()) {
-                if (launcher.getVelocity() > targetVelocity - 50 && !feedersSpinning && timer.milliseconds() > 1000) {
+                if (launcher.getVelocity() > targetVelocity - 50 && launcher.getVelocity() < targetVelocity + 200 && !feedersSpinning && timer.milliseconds() > 1000) {
                     leftFeeder.setPower(1);
                     rightFeeder.setPower(1);
                     timesShot += 1;
