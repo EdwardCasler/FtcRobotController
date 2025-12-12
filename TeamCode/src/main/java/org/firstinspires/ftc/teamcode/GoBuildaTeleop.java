@@ -47,7 +47,7 @@ public class GoBuildaTeleop extends OpMode {
         rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         telemetry.addLine("Y to turn launcher off/on");
-        telemetry.addLine("A to turn intake off/on");
+        telemetry.addLine("A to launch");
         telemetry.addLine("X for intake turning off");
         telemetry.addLine("Right & Left bumper for intake left right");
         telemetry.addLine("Right & Left trigger for feeders");
