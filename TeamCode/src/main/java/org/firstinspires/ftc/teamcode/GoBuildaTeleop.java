@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
 public class GoBuildaTeleop extends OpMode {
@@ -18,10 +19,9 @@ public class GoBuildaTeleop extends OpMode {
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
     final double targetVelocity = 1125;
-
+    ElapsedTime timer = new ElapsedTime();
     boolean launcherOn = false;
-    boolean intakeOn = false;
-    boolean intakeIn = true;
+    boolean feedersSpinning;
     public void init() {
         leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
@@ -61,19 +61,14 @@ public class GoBuildaTeleop extends OpMode {
             launcherOn = !launcherOn;
             launcher.setVelocity(launcherOn ? targetVelocity : 0);
         }
-        if(gamepad1.aWasReleased()){
-            intakeOn = !intakeOn;
-            intake.setPower(intakeOn ? 1 : 0);
-        }
-
-        if(gamepad1.left_trigger > 0.1) {
+        if(gamepad1.aWasReleased() && !feedersSpinning){
             leftFeeder.setPower(1);
             rightFeeder.setPower(1);
+            feedersSpinning = true;
+            timer.reset();
         }
-        else if(gamepad1.right_trigger > 0.1) {
-            leftFeeder.setPower(-1);
-            rightFeeder.setPower(-1);
-        } else {
+        if(feedersSpinning && timer.milliseconds() > 150) {
+            feedersSpinning = false;
             leftFeeder.setPower(0);
             rightFeeder.setPower(0);
         }
