@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
-public class GoBuildaTeleop extends OpMode {
+public class GoBuildaTeleop extends LinearOpMode {
     private DcMotor leftFrontDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor leftBackDrive = null;
@@ -22,7 +23,8 @@ public class GoBuildaTeleop extends OpMode {
     ElapsedTime timer = new ElapsedTime();
     boolean launcherOn = false;
     boolean feedersSpinning;
-    public void init() {
+    boolean running;
+    public void runOpMode() {
         leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
         leftBackDrive = hardwareMap.get(DcMotor.class, "bl");
@@ -46,21 +48,22 @@ public class GoBuildaTeleop extends OpMode {
         leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        telemetry.addLine("Y to turn launcher off/on");
         telemetry.addLine("A to launch");
         telemetry.addLine("X for intake turning off");
         telemetry.addLine("Right & Left bumper for intake left right");
         telemetry.addLine("Right & Left trigger for feeders");
-    }
-    public void loop() {
-        drive();
-        turnOn();
+
+        waitForStart();
+        while (opModeIsActive()) {
+            drive();
+            turnOn();
+        }
     }
     float timesShot = 0;
     public void turnOn() {
-        if(gamepad1.aWasReleased() && !feedersSpinning){
+        if(gamepad1.aWasReleased() && !feedersSpinning) {
             launcher.setVelocity(targetVelocity);
-            while (timesShot <= 3) {
+            while (timesShot <= 3 && opModeIsActive()) {
                 if (launcher.getVelocity() > targetVelocity - 50 && !feedersSpinning && timer.milliseconds() > 1000) {
                     leftFeeder.setPower(1);
                     rightFeeder.setPower(1);
