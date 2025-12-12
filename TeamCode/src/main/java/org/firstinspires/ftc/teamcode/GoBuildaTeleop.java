@@ -56,22 +56,31 @@ public class GoBuildaTeleop extends OpMode {
         drive();
         turnOn();
     }
+    float timesShot = 0;
     public void turnOn() {
-        if (gamepad1.yWasReleased()) {
-            launcherOn = !launcherOn;
-            launcher.setVelocity(launcherOn ? targetVelocity : 0);
-        }
         if(gamepad1.aWasReleased() && !feedersSpinning){
-            leftFeeder.setPower(1);
-            rightFeeder.setPower(1);
-            feedersSpinning = true;
-            timer.reset();
-        }
-        if(feedersSpinning && timer.milliseconds() > 150) {
-            feedersSpinning = false;
+            launcher.setVelocity(targetVelocity);
+            while (timesShot <= 3) {
+                if (launcher.getVelocity() > targetVelocity - 50 && !feedersSpinning && timer.milliseconds() > 1000) {
+                    leftFeeder.setPower(1);
+                    rightFeeder.setPower(1);
+                    timesShot += 1;
+                    feedersSpinning = true;
+                    timer.reset();
+                }
+                if (timer.milliseconds() > 150) {
+                    feedersSpinning = false;
+                    leftFeeder.setPower(0);
+                    rightFeeder.setPower(0);
+                }
+            }
             leftFeeder.setPower(0);
             rightFeeder.setPower(0);
+            launcher.setVelocity(0);
+            feedersSpinning = false;
+            timesShot = 0;
         }
+
         if(gamepad1.xWasReleased()){
             intake.setPower(0);
         }
