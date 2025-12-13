@@ -19,7 +19,7 @@ public class GoBuildaTeleop extends LinearOpMode {
     private DcMotorEx intake = null;
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
-    final double targetVelocity = 1175;
+    final double targetVelocity = 1225;
     ElapsedTime timer = new ElapsedTime();
     boolean feedersSpinning;
     public void runOpMode() {
@@ -53,13 +53,14 @@ public class GoBuildaTeleop extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            drive();
+            drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             turnOn();
         }
     }
     float timesShot = 0;
     public void turnOn() {
         if(gamepad1.aWasReleased() && !feedersSpinning) {
+            drive(0, 0, 0);
             launcher.setVelocity(targetVelocity);
             timer.reset();
             while (timesShot <= 3 && opModeIsActive()) {
@@ -95,12 +96,12 @@ public class GoBuildaTeleop extends LinearOpMode {
             intake.setPower(-1);
         }
     }
-    public void drive() {
-        double denominator = Math.max(Math.abs(-gamepad1.left_stick_y) + Math.abs(gamepad1.left_stick_x) + Math.abs(gamepad1.right_stick_x), 1);
+    void drive(float forward, float strafe, float rotate) {
+        double denominator = Math.max(Math.abs(forward) + Math.abs(strafe) + Math.abs(rotate), 1);
 
-        leftFrontDrive.setPower((-gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / denominator);
-        rightFrontDrive.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / denominator);
-        leftBackDrive.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / denominator);
-        rightBackDrive.setPower((-gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / denominator);
+        leftFrontDrive.setPower((forward + strafe + rotate) / denominator);
+        rightFrontDrive.setPower((forward - strafe - rotate) / denominator);
+        leftBackDrive.setPower((forward - strafe + rotate) / denominator);
+        rightBackDrive.setPower((forward + strafe - rotate) / denominator);
     }
 }

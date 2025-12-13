@@ -15,7 +15,7 @@ public class GoBuildaBlueAuto extends LinearOpMode {
     private DcMotorEx launcher = null;
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
-    final double targetVelocity = 1125;
+    final double targetVelocity = 1175;
     public void runOpMode() {
         leftFrontDrive = hardwareMap.get(DcMotor.class, "fl");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fr");
@@ -49,7 +49,7 @@ public class GoBuildaBlueAuto extends LinearOpMode {
         rightFeeder.setPower(0);
 
         drive(-0.6f, -1, 0);
-        sleep(1300);
+        sleep(900);
         drive(0, 0 ,0);
     }
     void launch() {
