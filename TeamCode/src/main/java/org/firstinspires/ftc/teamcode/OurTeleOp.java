@@ -9,8 +9,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.dashboard.config.Config;
+
 
 @TeleOp
+@Config
 public class OurTeleOp extends OpMode {
     private DcMotorEx flywheel;
     private DcMotor feedRoller;
@@ -18,7 +23,7 @@ public class OurTeleOp extends OpMode {
     private CRServo agitator;
     private DcMotor rightDrive;
 
-    private float flyWheelVelocity = 1300;
+    public static float flyWheelVelocity = 1300;
     private static final int bankVelocity = 1300;
     private static final int farVelocity = 1900;
     private static final int maxVelocity = 2200;
@@ -48,6 +53,7 @@ public class OurTeleOp extends OpMode {
         telemetry.addLine("This will disappear when the first interaction begins");
         telemetry.addLine("Voltage control is on");
  
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.update();
     }
 
@@ -55,6 +61,17 @@ public class OurTeleOp extends OpMode {
         basicMovement();
         turnOnMotors();
         flyWheel();
+
+        // Add telemetry data for dashboard
+        telemetry.addData("Flywheel Velocity", flywheel.getVelocity());
+        telemetry.addData("Flywheel Target", flyWheelVelocity);
+        telemetry.addData("Flywheel Powered", flyWheelPowered);
+        telemetry.addData("Agitator Powered", agitatorPowered);
+        telemetry.addData("Feed Roller Powered", feedRollerPowered);
+        telemetry.addData("Left Drive Power", leftDrive.getPower());
+        telemetry.addData("Right Drive Power", rightDrive.getPower());
+        telemetry.addData("Voltage", getLowestVoltage());
+
         telemetry.update();
     }
     public double getLowestVoltage() {
@@ -67,7 +84,6 @@ public class OurTeleOp extends OpMode {
         if(lowestValue == Double.POSITIVE_INFINITY) {
             lowestValue = 14;
         }
-        telemetry.addLine("Voltage: " + lowestValue + "V");
         return lowestValue;
     }
     public void basicMovement() {
